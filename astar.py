@@ -1,6 +1,5 @@
 #A* for Path Finding
 
-
 import pygame
 import math
 from queue import PriorityQueue
