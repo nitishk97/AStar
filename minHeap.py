@@ -1,10 +1,8 @@
 from cellState import cellState
 
 
-# compare the priority of two states by a specific stateSign
 def priorityComparision(state1: cellState, stateSign: str, state2: cellState, largerGFirst: bool):
     if largerGFirst is True:
-        # use tie breaker that prioritize the state with larger G value
         if stateSign == "==":
             return largerGPriority(state1) == largerGPriority(state2)
         elif stateSign == ">":
@@ -16,7 +14,6 @@ def priorityComparision(state1: cellState, stateSign: str, state2: cellState, la
         elif stateSign == "<=":
             return largerGPriority(state1) <= largerGPriority(state2)
     else:
-        # use tie breaker that prioritize the state with smaller G value
         if stateSign == "==":
             return smallerGPriority(state1) == smallerGPriority(state2)
         elif stateSign == ">":
@@ -29,12 +26,10 @@ def priorityComparision(state1: cellState, stateSign: str, state2: cellState, la
             return smallerGPriority(state1) <= smallerGPriority(state2)
 
 
-# Tie breaker that prioritizes state with larger g value
 def largerGPriority(state: cellState):
     return 999 * state.f_value - state.g_value
 
 
-# Tie breaker that prioritizes state with smaller g value
 def smallerGPriority(state: cellState):
     return 999 * state.f_value + state.g_value
 
@@ -74,7 +69,6 @@ class MinHeap(object):
             return retu
 
     def remove(self, cell_state):
-        # remove a specific state from heap
         if self.heap_data.index(cell_state) == 0:
             self.pop()
             return True
@@ -83,11 +77,8 @@ class MinHeap(object):
                 while cell_state in self.heap_data:
                     state_index = self.heap_data.index(cell_state)
                     self.heap_data[state_index], self.heap_data[self.cnt - 1] = self.heap_data[self.cnt - 1], self.heap_data[state_index]
-                    # print(self.toString())
                     del (self.heap_data[self.cnt - 1])
-                    # print(self.toString())
                     self.cnt -= 1
-                    # print(self.toString())
                     self.shiftDownward(state_index + 1)
             else:
                 return False

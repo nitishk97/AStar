@@ -1,12 +1,3 @@
-# import numpy as np
-# import random as rr
-# import matplotlib.pyplot as plot
-# import os
-# import sys
-# import shutil
-# import multiprocessing
-# import glob
-# import IPython
 
 import numpy as np
 import matplotlib.pyplot as plot
