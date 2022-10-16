@@ -43,7 +43,7 @@ def repeatedBackwardAStar(cell_states, start_location, goal_location, largerGFir
         for st in state_list:
             st.h_value = commonFuncs.heuristicFn(st, goal_state)
 
-    print("Iterating...\n")
+    print("calculating......")
     start_time = time.time() 
     while goal_state != start_state:
         cntr += 1
@@ -59,7 +59,7 @@ def repeatedBackwardAStar(cell_states, start_location, goal_location, largerGFir
 
         open_heap.push(goal_state) 
 
-        pathGeneration(open_heap, closed_heap, start_state, expanded_states, cntr, cell_states)  # Run backward A*
+        pathGeneration(open_heap, closed_heap, start_state, expanded_states, cntr, cell_states) 
 
         if open_heap.heap_size() == 0:
             print("\033[1;31mI cannot reach the target...o(╥﹏╥)o\033[0m")
@@ -80,21 +80,14 @@ def repeatedBackwardAStar(cell_states, start_location, goal_location, largerGFir
             for st in state_list:
                 st.h_value = commonFuncs.heuristicFn(st, start_state)
     expanded_states.append(goal_state.loc)
-    end_time = time.time()  # Record end time
-    print("Reached target")
+    end_time = time.time()  
+    print("We have reached the target")
     print("Search Metrics:")
     print("\t->start location: %s" % start_location)
     print("\t->goal location: %s" % goal_location)
-    print("\t->agent path: ", end="")
-    for index in range(len(agent_path)):
-        if index == 0:
-            print(agent_path[0], end="")
-            continue
-        print("→%s" % agent_path[index], end="")
-    print("")
     print("\t->Total Time Step: %d" % time_step)
     print("\t->Actual Cost: %d" % (len(agent_path) - 1))
-    print("\t->No.of A Star Iterations: %d " % cntr)
+    print("\t->No.of A* Iterations: %d " % cntr)
     print("\t->Time Cost: %.10f seconds" % (end_time - start_time))
     print("\t->No.of Cells Expanded: %d" % len(expanded_states))
 

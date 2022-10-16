@@ -84,9 +84,7 @@ class MinHeap(object):
                 return False
 
     def shiftDownward(self, cnt):
-        # Move state down to a proper location by priority to maintain the MinStateHeap
         while 2 * cnt <= self.cnt:
-            # browse children
             j = 2 * cnt
             if j+1 <= self.cnt:
                 if priorityComparision(self.heap_data[j], "<", self.heap_data[j - 1], self.largerGFirst):

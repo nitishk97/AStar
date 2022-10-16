@@ -44,22 +44,22 @@ def repeatedForwardAStar(cell_states, start_location, goal_location, largerGFirs
         for st in state_list:
             st.h_value = commonFuncs.heuristicFn(st, goal_state)
 
-    print("Iterating...\n")
+    print("calculating........")
     start_time = time.time() 
     while start_state != goal_state:
         cntr += 1
 
         start_state.g_value = 0 
-        start_state.search_value = cntr  #
+        start_state.search_value = cntr  
         goal_state.g_value = 99999 
-        goal_state.search_value = cntr  #
+        goal_state.search_value = cntr  
         open_heap = MinHeap(largerGFirst)
         closed_heap = MinHeap(largerGFirst)
         start_state.updateFValue()
 
         open_heap.push(start_state) 
 
-        pathGeneration(open_heap, closed_heap, goal_state, expanded_states, cntr, cell_states)  # Run forwardA*
+        pathGeneration(open_heap, closed_heap, goal_state, expanded_states, cntr, cell_states)  
         if open_heap.heap_size() == 0:
             print("Cannot reach target......")
             return False
@@ -79,20 +79,13 @@ def repeatedForwardAStar(cell_states, start_location, goal_location, largerGFirs
             else:
                 break
     expanded_states.append(goal_state.loc)
-    end_time = time.time()  # Record end time
+    end_time = time.time() 
     print("Reached the target!")
     print("Search Metrics:")
     print("\t->start Location: %s" % start_location)
     print("\t->goal Location: %s" % goal_location)
-    print("\t->agent path: \n")
-    for index in range(len(agent_path)):
-        if index == 0:
-            print(agent_path[0], end="")
-            continue
-        print("→%s" % agent_path[index], end="")
-    print("")
     print("\t->Actual Cost: %d" % (len(agent_path) - 1))
-    print("\t->Number of A Star Iterations: %d " % cntr)
+    print("\t->Number of A* Iterations: %d " % cntr)
     print("\t->Time Cost: %.10f seconds" % (end_time - start_time))
     print("\tNo.of Cells Expanded: %d" % len(expanded_states))
 
