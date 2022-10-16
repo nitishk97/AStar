@@ -42,7 +42,7 @@ def repeatedAdaptiveAStar(cell_states, start_location, goal_location, largerGFir
         for st in state_list:
             st.hValue = commonFuncs.heuristicFn(st, goal_state)
 
-    print("Iterating........")
+    print("calculating........")
     start_time = time.time()
     while start_state != goal_state:
         cntr += 1
@@ -59,7 +59,7 @@ def repeatedAdaptiveAStar(cell_states, start_location, goal_location, largerGFir
         open_heap.push(start_state) 
         pathGeneartion(open_heap, closed_heap, goal_state, expanded_states, cntr, cell_states) 
         if open_heap.heap_size() == 0:
-            print("Cannot reach target")
+            print("The Target can't be reached")
             return False
 
         while not closed_heap.isEmpty():
@@ -80,22 +80,15 @@ def repeatedAdaptiveAStar(cell_states, start_location, goal_location, largerGFir
             else:
                 break
     expanded_states.append(goal_state.loc)
-    end_time = time.time()  # Record end time
+    end_time = time.time()
     print("Reached target")
     print("Search Metrics:")
     print("\t->start location: %s" % start_location)
     print("\t->goal location: %s" % goal_location)
-    print("\t-agent Path: ", end="")
-    for index in range(len(agent_path)):
-        if index == 0:
-            print(agent_path[0], end="")
-            continue
-        print("→%s" % agent_path[index], end="")
-    print("")
     print("\t->Total Time Step: %d" % time_step)
     print("\t->Actual Cost: %d" % (len(agent_path) - 1))
-    print("\t->Number of A Star Iterations: %d " % cntr)
+    print("\t->Number of A* Iterations: %d " % cntr)
     print("\t->Time Cost: %.10f seconds" % (end_time - start_time))
-    print("\t->Expanded Cells: %d" % len(expanded_states))
+    print("\t->Number of expanded Cells: %d" % len(expanded_states))
 
     return agent_path, (end_time-start_time)

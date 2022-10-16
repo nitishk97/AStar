@@ -30,9 +30,9 @@ def pathVisualization(typeOfMaze: str, pathOfAgent, TimeCost, typeOfAStar):
     plot.ion()  
     plot.figure(figsize=(8, 8)) 
     plot.title(typeOfAStar, family="Comic Sans MS")  
-    img_art = plot.imshow(dataset, cmap=plot.cm.binary, vmin=0, vmax=20, interpolation='nearest', extent=(0, len(dataset), 0, len(dataset)))    # Initialize drawer
-    plot.text(start_location[1] + 0.1, len(dataset) - 0.9 - start_location[0], 'S', fontdict={'size': 432/len(dataset), 'color': 'red'})     # Label start location
-    plot.text(goal_location[1] + 0.1, len(dataset) - 0.9 - goal_location[0], 'G', fontdict={'size': 432/len(dataset), 'color': 'red'})       # Label goal location
+    img_art = plot.imshow(dataset, cmap=plot.cm.binary, vmin=0, vmax=20, interpolation='nearest', extent=(0, len(dataset), 0, len(dataset)))
+    plot.text(start_location[1] + 0.1, len(dataset) - 0.9 - start_location[0], 'S', fontdict={'size': 432/len(dataset), 'color': 'red', 'weight':'bold'})
+    plot.text(goal_location[1] + 0.1, len(dataset) - 0.9 - goal_location[0], 'G', fontdict={'size': 432/len(dataset), 'color': 'red', 'weight':'bold'})
     for index in range(len(pathOfAgent)):
         if dataset[pathOfAgent[index][0]][pathOfAgent[index][1]] == 0:
             dataset[pathOfAgent[index][0]][pathOfAgent[index][1]] = 10
@@ -63,9 +63,8 @@ def pathVisualization(typeOfMaze: str, pathOfAgent, TimeCost, typeOfAStar):
 
     img_art.set_data(dataset) 
 
-    plot.text(3/8 * len(cell_states), -len(cell_states)/15, "Finished!", family="Comic Sans MS", fontdict={'size': 12})   # Notice that current drawing is finished
-    plot.text(2/8 * len(cell_states), -len(cell_states)/10, "Total steps in optimal path: %d" % (len(pathOfAgent) - 1), family="Comic Sans MS", fontdict={'size': 12})
-    #plot.text(1/8 * len(cell_states), -len(cell_states)/10, "Total Time Cost: %d" %TimeCost, family="Comic Sans MS", fontdict={'size': 12})
+    plot.text(3/8 * len(cell_states), -len(cell_states)/15, "Finished!", family="Comic Sans MS", fontdict={'size': 12})  
+    plot.text(1/8 * len(cell_states), -len(cell_states)/10, "Total steps in optimal path: %d, Total Time Cost %f" % (len(pathOfAgent) - 1, TimeCost), family="Comic Sans MS", fontdict={'size': 12})
     
     plot.ioff() 
     plot.show()
@@ -130,7 +129,7 @@ if __name__ == '__main__':
 
     cell_states = commonFuncs.genStates(typeOfMaze) 
     print("Repeated Backward A Star: ")
-    pathOfAgent, TimeCost = backwardAStar.repeatedBackwardAStar(cell_states, [4,2], [53,19], largerGFirst)
+    pathOfAgent, TimeCost = backwardAStar.repeatedBackwardAStar(cell_states, start_location, goal_location, largerGFirst)
     if pathOfAgent is not False:
         pathVisualization(typeOfMaze, pathOfAgent, TimeCost, "Backward A Star")
         print("\tCosts for optimal path: %d" % (len(pathOfAgent) - 1))
